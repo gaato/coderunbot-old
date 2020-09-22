@@ -17,7 +17,7 @@ proc messageCreate(s: Shard, m: Message) {.async.} =
   of "test":
     discard await discord.api.sendMessage(m.channel_id, "Success!")
   of "echo":
-    var text = args[1..args.high].join(" ")
+    var text = args[prefix.len..args.high].join(" ")
     if text == "":
       text = "Empty text."
     discard await discord.api.sendMessage(m.channel_id, text)
