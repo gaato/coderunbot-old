@@ -7,8 +7,6 @@ proc messageCreate(s: Shard, m: Message) {.async.} =
     return
   let command = args[0][prefix.len..args[0].high]
   let arg = args[1..args.high].join(" ")
-  echo command
-  echo arg
   case command.toLowerAscii():
   of "test":
     discard await discord.api.sendMessage(m.channel_id, "Success!")

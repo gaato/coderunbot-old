@@ -11,4 +11,4 @@ bin           = @["coderunbot"]
 
 # Dependencies
 
-requires "nim >= 1.2.0", "dimscord >= 1.0.0", "dotenv >= 1.1.0"
+requires "nim >= 1.2.0", "dimscord#head", "dotenv >= 1.1.0"
