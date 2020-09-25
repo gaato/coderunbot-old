@@ -58,7 +58,7 @@ proc runCode*(m: Message, arg: string) {.async.} =
       m.channel_id,
       embed = some Embed(
         title: some "以下の言語に対応しています\nThe following languages are supported",
-        description: some languages.join(", "),
+        description: some "`" & languages.join("`, `") & "`",
         color: some 0xff0000,
         author: some EmbedAuthor(
           name: some m.author.username,
