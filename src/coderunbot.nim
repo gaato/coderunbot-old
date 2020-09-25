@@ -1,5 +1,5 @@
 import dimscord, asyncdispatch, strutils, options, nre
-import config, run
+import config, run, tex
 
 proc messageCreate(s: Shard, m: Message) {.async.} =
   let args = m.content.split(" ")
@@ -17,6 +17,8 @@ proc messageCreate(s: Shard, m: Message) {.async.} =
     discard await discord.api.sendMessage(m.channel_id, text)
   of "run":
     await runCode(m, arg)
+  of "tex":
+    await texToPng(m, arg)
   else:
     discard
 
