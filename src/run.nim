@@ -1,7 +1,17 @@
-import httpclient, json, asyncdispatch, dimscord, strutils, tables
+import httpclient, json, asyncdispatch, dimscord, strutils, tables, options
 import config, languages
 
 const url = "https://wandbox.org/api/compile.json"
+
+proc codeResult(m: Message, data: string) {.async.} =
+  discard await discord.api.sendMessage(
+    m.channel_id,
+    embed = some Embed(
+      title: some "実行結果",
+      description: some "```\n" & data & "\n```",
+      color: some 0x7789ec
+    )
+  )
 
 proc runCode*(m: Message, arg: string) {.async.} =
   let client = newAsyncHttpClient()
@@ -30,7 +40,4 @@ proc runCode*(m: Message, arg: string) {.async.} =
     httpMethod = HttpPost,
     body = $body
   )
-  discard await discord.api.sendMessage(
-    m.channel_id,
-    await response.body
-  )
+  await codeResult(m, await response.body)
