@@ -48,7 +48,7 @@ proc runCode*(m: Message, arg: string) {.async.} =
     "Content-Type": "application/json",
     "Accept": "text/plain",
   })
-  let argLines = arg.splitLines
+  let argLines = arg.replace(re"```.+\n", "").replace("```", "").strip.splitLines
   let language: string = argLines[0].toLowerAscii
   var compiler: string
   try:
