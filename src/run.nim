@@ -1,4 +1,4 @@
-import httpclient, json, asyncdispatch, dimscord, strutils, tables, options, random
+import httpclient, json, asyncdispatch, dimscord, strutils, tables, options, random, nre
 import config, wandboxLang
 
 randomize()
