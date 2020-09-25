@@ -5,8 +5,8 @@ proc messageCreate(s: Shard, m: Message) {.async.} =
   let args = m.content.split(" ")
   if m.author.bot or not args[0].startsWith(prefix):
     return
-  let command = args[0][prefix.len..args[0].high]
-  let arg = args[1..args.high].join(" ")
+  let command = args[0].split("\n")[0][prefix.len..args[0].split("\n")[0].high]
+  let arg = m.content[(prefix.len + command.len + 1)..m.content.high]
   case command.toLowerAscii():
   of "test":
     discard await discord.api.sendMessage(m.channel_id, "Success!")

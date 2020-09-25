@@ -8,7 +8,7 @@ proc texToPng*(m: Message, arg: string) {.async.} =
   let pid = rand(int.high)
   var f: File
   f = open("tex-template.tex", FileMode.fmRead)
-  let texCode = f.readAll.replace("[REPLACE]", arg)
+  let texCode = f.readAll.replace("[REPLACE]", arg.replace(re"```.+\n", "").replace("```", "").strip)
   f.close
   f = open("/tmp/" & $pid & ".tex", FileMode.fmWrite)
   f.write(texCode)
@@ -67,7 +67,7 @@ proc texpToPng*(m: Message, arg: string) {.async.} =
   let pid = rand(int.high)
   var f: File
   f = open("texp-template.tex", FileMode.fmRead)
-  let texCode = f.readAll.replace("[REPLACE]", arg)
+  let texCode = f.readAll.replace("[REPLACE]", arg.replace(re"```.+\n", "").replace("```", "").strip)
   f.close
   f = open("/tmp/" & $pid & ".tex", FileMode.fmWrite)
   f.write(texCode)
