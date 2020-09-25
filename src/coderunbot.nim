@@ -19,6 +19,8 @@ proc messageCreate(s: Shard, m: Message) {.async.} =
     await runCode(m, arg)
   of "tex":
     await texToPng(m, arg)
+  of "texp":
+    await texpToPng(m, arg)
   else:
     discard
 
