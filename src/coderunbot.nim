@@ -7,22 +7,32 @@ proc messageCreate(s: Shard, m: Message) {.async.} =
     return
   let command = args[0].split("\n")[0][prefix.len..args[0].split("\n")[0].high]
   let arg = m.content[(prefix.len + command.len + 1)..m.content.high]
+  var sentMessage: Message
   case command.toLowerAscii():
   of "test":
-    discard await discord.api.sendMessage(m.channel_id, "Success!")
-  of "echo":
-    var text = args[prefix.len..args.high].join(" ")
-    if text == "":
-      text = "Empty text."
-    discard await discord.api.sendMessage(m.channel_id, text)
+    sentMessage = await discord.api.sendMessage(m.channel_id, "Success!")
   of "run":
-    await runCode(m, arg)
+    sentMessage = await runCode(m, arg)
   of "tex":
-    await texToPng(m, arg)
+    sentMessage = await texToPng(m, arg)
   of "texp":
-    await texpToPng(m, arg)
+    sentMessage = await texpToPng(m, arg)
   else:
-    discard
+    return
+  discard discord.api.addMessageReaction(
+    sentMessage.channel_id,
+    sentMessage.id,
+    "🚮"
+  )
+#[
+proc messageReactionAdd(s: Shard, m: Message, u: User, r: Reaction, exists: bool) {.async.} =
+  if m.author.id == s.user.id:
+    if r.emoji.name == some "🚮":
+      discard discord.api.deleteMessage(
+        m.channel_id,
+        m.id
+      )
+]#      
 
 proc onReady(s: Shard, r: Ready) {.async.} =
   echo "Ready as: " & $r.user
@@ -37,6 +47,7 @@ proc messageDelete(s: Shard, m: Message, exists: bool) {.async.} =
 discord.events.onReady = onReady
 discord.events.messageCreate = messageCreate
 discord.events.messageDelete = messageDelete
+#discord.events.messageReactionAdd = messageReactionAdd
 
 # Connect to Discord and run the bot.
 when isMainModule:

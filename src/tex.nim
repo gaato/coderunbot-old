@@ -4,7 +4,7 @@ import config
 
 randomize()
 
-proc texToPng*(m: Message, arg: string) {.async.} =
+proc texToPng*(m: Message, arg: string): Future[Message] {.async.} =
   let pid = rand(int.high)
   var f: File
   f = open("tex-template.tex", FileMode.fmRead)
@@ -21,7 +21,8 @@ proc texToPng*(m: Message, arg: string) {.async.} =
     f.close
     err = "!" & err.split("!")[1]
     err = err.split("Here")[0]
-    discard await discord.api.sendMessage(
+    discard execCmd("rm -v " & $pid & ".*")
+    return await discord.api.sendMessage(
       m.channel_id,
       embed = some Embed(
         title: some "エラー Error",
@@ -33,8 +34,6 @@ proc texToPng*(m: Message, arg: string) {.async.} =
         )
       )
     )
-    discard execCmd("rm -v " & $pid & ".*")
-    return
   let cropResult = execCmd("pdfcrop /tmp/" & $pid & ".pdf --margins \"4 4 4 4\"")
   if cropResult != 0:
     return
@@ -48,7 +47,7 @@ proc texToPng*(m: Message, arg: string) {.async.} =
   )]
   f.close
   discard execCmd("rm -v " & $pid & ".*")
-  discard await discord.api.sendMessage(
+  return await discord.api.sendMessage(
     m.channel_id,
     embed = some Embed(
       color: some 0x007000,
@@ -63,7 +62,7 @@ proc texToPng*(m: Message, arg: string) {.async.} =
     files = some files
   )
 
-proc texpToPng*(m: Message, arg: string) {.async.} =
+proc texpToPng*(m: Message, arg: string): Future[Message] {.async.} =
   let pid = rand(int.high)
   var f: File
   f = open("texp-template.tex", FileMode.fmRead)
@@ -80,7 +79,8 @@ proc texpToPng*(m: Message, arg: string) {.async.} =
     f.close
     err = "!" & err.split("!")[1]
     err = err.split("Here")[0]
-    discard await discord.api.sendMessage(
+    discard execCmd("rm -v " & $pid & ".*")
+    return await discord.api.sendMessage(
       m.channel_id,
       embed = some Embed(
         title: some "エラー Error",
@@ -92,8 +92,6 @@ proc texpToPng*(m: Message, arg: string) {.async.} =
         )
       )
     )
-    discard execCmd("rm -v " & $pid & ".*")
-    return
   let cropResult = execCmd("pdfcrop /tmp/" & $pid & ".pdf")
   if cropResult != 0:
     return
@@ -111,7 +109,7 @@ proc texpToPng*(m: Message, arg: string) {.async.} =
   )]
   f.close
   discard execCmd("rm -v " & $pid & ".*")
-  discard await discord.api.sendMessage(
+  return await discord.api.sendMessage(
     m.channel_id,
     embed = some Embed(
       color: some 0x007000,

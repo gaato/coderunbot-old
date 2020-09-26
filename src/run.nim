@@ -4,7 +4,7 @@ import config, wandboxLang
 randomize()
 const url = "https://wandbox.org/api/compile.json"
 
-proc codeResult(m: Message, data: JsonNode) {.async.} =
+proc codeResult(m: Message, data: JsonNode): Future[Message] {.async.} =
   var fields: seq[EmbedField]   
   var embedColor = 0xff0000
   var files: seq[DiscordFile]
@@ -28,7 +28,7 @@ proc codeResult(m: Message, data: JsonNode) {.async.} =
           value: "```\n" & val & "\n```"
         )
       )
-  discard await discord.api.sendMessage(
+  return await discord.api.sendMessage(
     m.channel_id,
     embed = some Embed(
       title: some "実行結果 Result",
@@ -42,7 +42,7 @@ proc codeResult(m: Message, data: JsonNode) {.async.} =
     files = some files
   )
 
-proc runCode*(m: Message, arg: string) {.async.} =
+proc runCode*(m: Message, arg: string): Future[Message] {.async.} =
   let client = newAsyncHttpClient()
   client.headers = newHttpHeaders({
     "Content-Type": "application/json",
@@ -78,4 +78,4 @@ proc runCode*(m: Message, arg: string) {.async.} =
     body = $body
   )
   let data = parseJson(await response.body)
-  await codeResult(m, data)
+  return await codeResult(m, data)
