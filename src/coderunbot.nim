@@ -24,7 +24,7 @@ proc messageCreate(s: Shard, m: Message) {.async.} =
     sentMessage.id,
     "🚮"
   )
-#[
+discard """
 proc messageReactionAdd(s: Shard, m: Message, u: User, r: Reaction, exists: bool) {.async.} =
   if m.author.id == s.user.id:
     if r.emoji.name == some "🚮":
@@ -32,7 +32,7 @@ proc messageReactionAdd(s: Shard, m: Message, u: User, r: Reaction, exists: bool
         m.channel_id,
         m.id
       )
-]#      
+"""
 
 proc onReady(s: Shard, r: Ready) {.async.} =
   echo "Ready as: " & $r.user
