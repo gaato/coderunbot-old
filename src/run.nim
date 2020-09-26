@@ -1,4 +1,4 @@
-import httpclient, json, asyncdispatch, dimscord, strutils
+import httpclient, json, asyncdispatch, dimscord, strutils, json
 import config
 const url = "https://wandbox.org/api/compile.json"
 
@@ -9,14 +9,12 @@ proc runCode*(m: Message, arg: string) {.async.} =
     "Accept": "text/plain",
   })
   let argLines = arg.splitLines
-  echo argLines
   let compiler = argLines[0]
   let code = argLines[1..argLines.high].join("\n")
   let body = %*{
     "compiler": compiler,
     "code": code,
   }
-  echo body
   let response = await client.request(
     url,
     httpMethod = HttpPost,
