@@ -1,14 +1,12 @@
 import dimscord, asyncdispatch, strutils, options, nre
-import config, run
+import config, run, tex
 
 proc messageCreate(s: Shard, m: Message) {.async.} =
   let args = m.content.split(" ")
   if m.author.bot or not args[0].startsWith(prefix):
     return
-  let command = args[0][prefix.len..args[0].high]
-  let arg = args[1..args.high].join(" ")
-  echo command
-  echo arg
+  let command = args[0].split("\n")[0][prefix.len..args[0].split("\n")[0].high]
+  let arg = m.content[(prefix.len + command.len + 1)..m.content.high]
   case command.toLowerAscii():
   of "test":
     discard await discord.api.sendMessage(m.channel_id, "Success!")
@@ -19,6 +17,10 @@ proc messageCreate(s: Shard, m: Message) {.async.} =
     discard await discord.api.sendMessage(m.channel_id, text)
   of "run":
     await runCode(m, arg)
+  of "tex":
+    await texToPng(m, arg)
+  of "texp":
+    await texpToPng(m, arg)
   else:
     discard
 
