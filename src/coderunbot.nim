@@ -1,5 +1,16 @@
-import dimscord, asyncdispatch, strutils, options, nre
+import dimscord, asyncdispatch, strutils, options, nre, tables
 import config, run, tex
+
+var
+  userMessageIdToBotMessageId = initOrderedTable[string, string]()
+  botMessageIdToAuthorId = initOrderedTable[string, string]()
+
+template addToTable(t: OrderedTable[untyped, untyped], k: untyped, v: untyped) =
+  t.add(k, v)
+  if t.len > 10:
+    for i in t.keys:
+      t.del(i)
+      break
 
 proc messageCreate(s: Shard, m: Message) {.async.} =
   let args = m.content.split(" ")
@@ -24,15 +35,27 @@ proc messageCreate(s: Shard, m: Message) {.async.} =
     sentMessage.id,
     "🚮"
   )
-discard """
+  userMessageIdTobotMessageId.addToTable(m.id, sentMessage.id)
+  botMessageIdToAuthorId.addToTable(sentMessage.id, m.author.id)
+
+proc messageUpdate(s: Shard, m: Message, o: Option[Message], exists: bool) {.async.} =
+  if userMessageIdToBotMessageId.hasKey(m.id):
+    botMessageIdToAuthorId.del(userMessageIdToBotMessageId[m.id])
+    discard discord.api.deleteMessage(
+      m.channel_id,
+      userMessageIdToBotMessageId[m.id]
+    )
+    userMessageIdToBotMessageId.del(m.id)
+    await messageCreate(s, m)
+
 proc messageReactionAdd(s: Shard, m: Message, u: User, r: Reaction, exists: bool) {.async.} =
   if m.author.id == s.user.id:
-    if r.emoji.name == some "🚮":
-      discard discord.api.deleteMessage(
-        m.channel_id,
-        m.id
-      )
-"""
+    if botMessageIdToAuthorId.hasKey(m.id) and botMessageIdToAuthorId[m.id] == u.id:
+      if r.emoji.name == some "🚮":
+        discard discord.api.deleteMessage(
+          m.channel_id,
+          m.id
+        )
 
 proc onReady(s: Shard, r: Ready) {.async.} =
   echo "Ready as: " & $r.user
@@ -47,7 +70,8 @@ proc messageDelete(s: Shard, m: Message, exists: bool) {.async.} =
 discord.events.onReady = onReady
 discord.events.messageCreate = messageCreate
 discord.events.messageDelete = messageDelete
-#discord.events.messageReactionAdd = messageReactionAdd
+discord.events.messageUpdate = messageUpdate
+discord.events.messageReactionAdd = messageReactionAdd
 
 # Connect to Discord and run the bot.
 when isMainModule:
