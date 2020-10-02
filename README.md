@@ -14,7 +14,7 @@ Here is the official discord server. (plan)
 ## 必要要件 Requirements
 - Linux or macOS
 - Nim
-- TexLive
+- TeX Live
 - Poppler (pdftoppm)
 - ImageMagick (convert)
 
