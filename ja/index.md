@@ -8,8 +8,10 @@
     - [例](#e2)
   - [texp](#texp)
     - [例](#e3)
+
 ## はじめに
 この Bot はがーと([@kinder_Gart_en](https://twitter.com/kinder_Gart_en))によって作られました．
+
 公式 Discord サーバーはこちら(予定)
 ## コマンド
 ### run
@@ -99,3 +101,4 @@ LaTeX のテキストモードを使っています．
   x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}
 \]
 と表される．
+```
