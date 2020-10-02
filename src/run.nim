@@ -54,7 +54,7 @@ proc runCode*(m: Message, arg: string): Future[Message] {.async.} =
   try:
     compiler = compilers[language]
   except KeyError:
-    discard await discord.api.sendMessage(
+    return await discord.api.sendMessage(
       m.channel_id,
       embed = some Embed(
         title: some "以下の言語に対応しています\nThe following languages are supported",
@@ -66,7 +66,6 @@ proc runCode*(m: Message, arg: string): Future[Message] {.async.} =
         ),
       ),
     )
-    return
   let code = argLines[1..argLines.high].join("\n")
   let body = %*{
     "compiler": compiler,

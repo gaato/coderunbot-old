@@ -16,12 +16,20 @@ proc messageCreate(s: Shard, m: Message) {.async.} =
   let args = m.content.split(" ")
   if m.author.bot or not args[0].startsWith(prefix):
     return
-  let command = args[0].split("\n")[0][prefix.len..args[0].split("\n")[0].high]
-  let arg = m.content[(prefix.len + command.len + 1)..m.content.high]
+  let command = args[0].split("\n")[0][prefix.len..args[0].split("\n")[0].high].strip
+  let arg = m.content[(prefix.len + command.len)..m.content.high].strip
   var sentMessage: Message
   case command.toLower():
   of "test":
     sentMessage = await discord.api.sendMessage(m.channel_id, "Success!")
+  of "help":
+    sentMessage = await discord.api.sendMessage(
+      m.channel_id,
+      embed = some Embed(
+        title: some "使い方 Help",
+        description: some "https://coderunbot.gart.page/"
+      )
+    )
   of "run":
     sentMessage = await runCode(m, arg)
   of "tex":
