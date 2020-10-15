@@ -68,16 +68,12 @@ proc messageReactionAdd(s: Shard, m: Message, u: User, r: Reaction, exists: bool
 proc onReady(s: Shard, r: Ready) {.async.} =
   echo "Ready as: " & $r.user
   await s.updateStatus(game = some GameStatus(
-    name: "around.",
+    name: "]help",
     kind: gatPlaying
   ), status = "idle")
 
-proc messageDelete(s: Shard, m: Message, exists: bool) {.async.} =
-  echo "Awild message has been deleted!"
-
 discord.events.onReady = onReady
 discord.events.messageCreate = messageCreate
-discord.events.messageDelete = messageDelete
 discord.events.messageUpdate = messageUpdate
 discord.events.messageReactionAdd = messageReactionAdd
 
