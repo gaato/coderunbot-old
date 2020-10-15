@@ -18,6 +18,11 @@ Here is the official discord server. (plan)
 - Poppler (pdftoppm)
 - ImageMagick (convert)
 
+## .env
+```
+DISCORD_TOKEN="YOUR-DISCORD-TOKEN"
+```
+
 ## 実行方法 How to run it
 ```
 $ git clone git@github.com:Gart2357/coderunbot.git
