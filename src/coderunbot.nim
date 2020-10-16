@@ -19,32 +19,46 @@ proc messageCreate(s: Shard, m: Message) {.async.} =
   let command = args[0].split("\n")[0][prefix.len..args[0].split("\n")[0].high].strip
   let arg = m.content[(prefix.len + command.len)..m.content.high].strip
   var sentMessage: Message
-  case command.toLower():
-  of "test":
-    sentMessage = await discord.api.sendMessage(m.channel_id, "Success!")
-  of "help":
+  try:
+    case command.toLower():
+    of "test":
+      sentMessage = await discord.api.sendMessage(m.channel_id, "Success!")
+    of "help":
+      sentMessage = await discord.api.sendMessage(
+        m.channel_id,
+        embed = some Embed(
+          title: some "使い方 Help",
+          description: some "https://coderunbot.gart.page/"
+        )
+      )
+    of "run":
+      sentMessage = await runCode(m, arg)
+    of "tex":
+      sentMessage = await texToPng(m, arg)
+    of "texp":
+      sentMessage = await texpToPng(m, arg)
+    else:
+      return
+  except:
     sentMessage = await discord.api.sendMessage(
       m.channel_id,
       embed = some Embed(
-        title: some "使い方 Help",
-        description: some "https://coderunbot.gart.page/"
+        title: some "内部エラー Internal Error",
+        color: some 0xff0000,
+        author: some EmbedAuthor(
+          name: some m.author.username,
+          icon_url: some m.author.avatarUrl
+        )
       )
     )
-  of "run":
-    sentMessage = await runCode(m, arg)
-  of "tex":
-    sentMessage = await texToPng(m, arg)
-  of "texp":
-    sentMessage = await texpToPng(m, arg)
-  else:
-    return
-  discard discord.api.addMessageReaction(
-    sentMessage.channel_id,
-    sentMessage.id,
-    "🚮"
-  )
-  userMessageIdTobotMessageId.addToTable(m.id, sentMessage.id)
-  botMessageIdToAuthorId.addToTable(sentMessage.id, m.author.id)
+  finally:
+    discard discord.api.addMessageReaction(
+      sentMessage.channel_id,
+      sentMessage.id,
+      "🚮"
+    )
+    userMessageIdTobotMessageId.addToTable(m.id, sentMessage.id)
+    botMessageIdToAuthorId.addToTable(sentMessage.id, m.author.id)
 
 proc messageUpdate(s: Shard, m: Message, o: Option[Message], exists: bool) {.async.} =
   if userMessageIdToBotMessageId.hasKey(m.id):
