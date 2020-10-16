@@ -3,3 +3,4 @@ nimblecache/
 htmldocs/
 coderunbot
 .env
+nohup.out
