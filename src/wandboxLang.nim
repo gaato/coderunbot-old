@@ -27,7 +27,7 @@ const compilers*: Table[string, string] = {
   "pony": "pony-head",
   "pypy": "pypy-head",
   "python": "cpython-head",
-  "r": "r",
+  "r": "r-head",
   "rill": "rill-head",
   "ruby": "ruby-head",
   "rust": "rust-head",
