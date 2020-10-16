@@ -93,4 +93,8 @@ discord.events.messageReactionAdd = messageReactionAdd
 
 # Connect to Discord and run the bot.
 when isMainModule:
-  waitFor discord.startSession()
+  while true:
+    try:
+      waitFor discord.startSession()
+    except:
+      echo "Error"
