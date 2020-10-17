@@ -6,11 +6,14 @@ var
   botMessageIdToAuthorId = initOrderedTable[string, string]()
 
 template addToTable(t: OrderedTable[untyped, untyped], k: untyped, v: untyped) =
+  echo $t
   t.add(k, v)
+  echo $t
   if t.len > 10:
     for i in t.keys:
       t.del(i)
       break
+  echo $t
 
 proc messageCreate(s: Shard, m: Message) {.async.} =
   let args = m.content.split(" ")
