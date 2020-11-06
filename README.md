@@ -13,10 +13,8 @@ Here is the official discord server. (plan)
 
 ## 必要要件 Requirements
 - Linux or macOS
-- Nim
-- TeX Live
-- Poppler (pdftoppm)
-- ImageMagick (convert)
+- Python3
+- tex2jpg
 
 ## .env
 ```
@@ -27,6 +25,6 @@ DISCORD_TOKEN="YOUR-DISCORD-TOKEN"
 ```
 $ git clone git@github.com:Gart2357/coderunbot.git
 $ cd coderunbot
-$ nimble build -d:ssl
-$ ./coderunbot
+$ pip install -r requirements.txt
+$ python main.py
 ```
