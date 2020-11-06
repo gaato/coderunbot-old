@@ -13,7 +13,7 @@
 ## はじめに
 この Bot はがーと([@kinder_Gart_en](https://twitter.com/kinder_Gart_en))によって作られました．
 
-公式 Discord サーバーはこちら(予定)
+公式 Discord サーバーは[こちら](https://discord.gg/qRpYRTgvXM)
 ## コマンド
 ### run
 ```
