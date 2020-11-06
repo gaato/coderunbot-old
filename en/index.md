@@ -13,7 +13,7 @@
 ## Intoroduction
 This Bot is made by Gart ([@kinder_Gart_en](https://twitter.com/kinder_Gart_en)).
 
-Here is the discord server.[here](https://discord.gg/qRpYRTgvXM)
+[Here](https://discord.gg/qRpYRTgvXM) is the discord server.
 ## Commands
 ### run
 ```
