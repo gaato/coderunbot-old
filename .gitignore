@@ -1,6 +1,4 @@
-nimcache/
-nimblecache/
-htmldocs/
-coderunbot
+__pycache__
+.python-version
 .env
 nohup.out
