@@ -96,8 +96,8 @@ async def reply(message):
                 except Exception as e:
                     logging.exception(e)
                     embed = discord.Embed(
-                        title='内部エラーが発生しました',
-                        description='エラーが続く場合は公式サーバで報告してください\n'
+                        title='内部エラー Internal Error',
+                        description='公式サーバーで報告してください\nReport it on the official server\n'
                             + SERVER_URL,
                         color=0xff0000
                     )
