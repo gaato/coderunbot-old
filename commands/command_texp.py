@@ -16,7 +16,7 @@ async def main(message, arg):
     with open(f'{here}/tex_template/texp.tex', 'r') as f:
         tex_con = f.read().replace('[REPLACE]', arg.strip())
 
-    cp = subprocess.run(['tex2jpg', '--margins', '0 0 0 0'], input=tex_con.encode('UTF-8'), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    cp = subprocess.run(['tex2jpg', '--margins', '10 -10 10 -10'], input=tex_con.encode('UTF-8'), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
     if cp.returncode != 0:
         embed = discord.Embed(
