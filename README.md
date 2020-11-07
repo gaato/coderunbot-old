@@ -1,11 +1,15 @@
 # CodeRunBot
 コードの実行や LaTeX の画像化ができます．
 
+ボットの招待リンクは[こちら](https://discord.com/api/oauth2/authorize?client_id=761428259241328680&permissions=0&scope=bot)．
+
 公式 Discord サーバーは[こちら](https://discord.gg/qRpYRTgvXM)．
 
 使い方は[こちら](https://coderunbot.gart.page/ja/)．
 
 It can run codes and image LaTeX.
+
+[Here](https://discord.com/api/oauth2/authorize?client_id=761428259241328680&permissions=0&scope=bot) is the bot's invitation link.
 
 [Here](https://discord.gg/qRpYRTgvXM) is the official discord server.
 
