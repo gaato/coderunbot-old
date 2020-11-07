@@ -13,8 +13,8 @@ Here is the official discord server. (plan)
 
 ## 必要要件 Requirements
 - Linux or macOS
-- Python3
-- tex2jpg
+- python3
+- go
 
 ## .env
 ```
@@ -24,6 +24,8 @@ DISCORD_TOKEN="YOUR-DISCORD-TOKEN"
 ## 実行方法 How to run it
 ```
 $ git clone git@github.com:Gart2357/coderunbot.git
+$ go get -u github.com/gw31415/tex2jpg
+$ go install github.com/gw31415/tex2jpg
 $ cd coderunbot
 $ pip install -r requirements.txt
 $ python main.py
