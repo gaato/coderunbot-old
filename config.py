@@ -11,3 +11,4 @@ with open(os.path.dirname(__file__) + '/config.json', 'r') as f:
 
 PREFIX = config_dict['prefix']
 SERVER_URL = config_dict['server_url']
+INVITE_URL = config_dict['invite_url']

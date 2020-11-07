@@ -5,10 +5,11 @@ import traceback
 from collections import OrderedDict
 from importlib import import_module
 import logging
+import random
 
 import discord
 
-from config import DISCORD_TOKEN, PREFIX, SERVER_URL
+from config import DISCORD_TOKEN, PREFIX, SERVER_URL, INVITE_URL
 
 
 class LimitedSizeDict(OrderedDict):
@@ -107,5 +108,17 @@ async def reply(message):
                 message_id_to_author_id[sent_message.id] = message.author.id
                 user_message_id_to_bot_message[message.id] = sent_message
                 await sent_message.add_reaction('🚮')
+                if random.randrange(20) == 0:
+                    embed = discord.Embed(
+                        title='招待リンク Invitation Link',
+                        description=INVITE_URL
+                    )
+                    await message.channel.send(embed=embed)
+                elif random.randrange(100) == 0:
+                    embed = discord.Embed(
+                        title='公式サーバー Official Serever',
+                        description=SERVER_URL
+                    )
+                    await message.channel.send(embed=embed)
 
 client.run(DISCORD_TOKEN)
