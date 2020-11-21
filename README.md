@@ -32,5 +32,5 @@ $ go get -u github.com/gw31415/tex2jpg
 $ go install github.com/gw31415/tex2jpg
 $ cd coderunbot
 $ pip install -r requirements.txt
-$ python main.py
+$ python coderunbot.py
 ```
