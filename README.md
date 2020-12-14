@@ -30,8 +30,6 @@ DISCORD_TOKEN="YOUR-DISCORD-TOKEN"
 ## 実行方法 How to run it
 ```
 $ git clone git@github.com:Gart2357/coderunbot.git
-$ go get -u github.com/gw31415/tex2jpg
-$ go install github.com/gw31415/tex2jpg
 $ cd coderunbot
 $ pip install -r requirements.txt
 $ python coderunbot.py
