@@ -2,6 +2,7 @@ import json
 import os
 import random
 import re
+import io
 
 import aiohttp
 import discord
