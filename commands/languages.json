@@ -13,7 +13,7 @@
     "fpc": "fpc-head",
     "go": "go-head",
     "groovy": "groovy-head",
-    "haskell": "ghc-head",
+    "haskell": "ghc-8.4.2",
     "java": "openjdk-head",
     "javascript": "nodejs-head",
     "lazyk": "lazyk",
