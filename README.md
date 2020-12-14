@@ -18,7 +18,9 @@ It can run codes and image LaTeX.
 ## 必要要件 Requirements
 - Linux or macOS
 - python3
-- go
+- TeXLive
+- Poppler (pdftoppm)
+- ImageMagick (convert)
 
 ## .env
 ```
