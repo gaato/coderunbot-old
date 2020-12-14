@@ -10,7 +10,6 @@ import discord
 async def main(message, arg):
 
     arg = arg.replace('```tex', '').replace('```', '')
-    fid = str(random.SystemRandom().randint(10000, 99999))
     here = os.path.dirname(__file__)
 
     with open(f'{here}/tex_template/texp.tex', 'r') as f:

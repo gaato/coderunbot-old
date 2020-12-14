@@ -92,7 +92,7 @@ async def reply(message):
             tmp_module = import_module(f'commands.command_{command}')
             async with message.channel.typing():
                 try:
-                    sent_message = await asyncio.wait_for(tmp_module.main(message, arg), timeout=10.0)
+                    sent_message = await tmp_module.main(message, arg)
                 except discord.Forbidden:
                     return
                 except Exception as e:
@@ -108,7 +108,7 @@ async def reply(message):
                 message_id_to_author_id[sent_message.id] = message.author.id
                 user_message_id_to_bot_message[message.id] = sent_message
                 await sent_message.add_reaction('🚮')
-                if random.randrange(20) == 0:
+                if random.randrange(100) == 0:
                     embed = discord.Embed(
                         title='招待リンク Invitation Link',
                         description=INVITE_URL
