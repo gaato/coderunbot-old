@@ -19,7 +19,15 @@ async def main(message, arg):
     with open(f'/tmp/' + fid + '.tex', 'w') as f:
         f.write(tex_con)
 
-    _ = subprocess.run(['uplatex', '-halt-on-error', '-output-directory=/tmp', '/tmp/' + fid + '.tex'])
+    try:
+        _ = subprocess.run(['uplatex', '-halt-on-error', '-output-directory=/tmp', '/tmp/' + fid + '.tex'], timeout=10)
+    except subprocess.TimeoutExpired:
+        embed = discord.Embed(
+            title='タイムアウト Timeout',
+            color=0xff0000
+        )
+        embed.set_author(name=message.author.name, icon_url=message.author.avatar_url)
+        return await message.channel.send(embed=embed)
     dvipdfmx = subprocess.run(['dvipdfmx', '-q', '-o', '/tmp/' + fid + '.pdf', '/tmp/' + fid + '.dvi'])
 
     if dvipdfmx.returncode != 0:
@@ -29,10 +37,10 @@ async def main(message, arg):
             title='エラー Error',
             description=f'```\n{err}\n```',
             color=0xff0000
-            )
+        )
         embed.set_author(name=message.author.name, icon_url=message.author.avatar_url)
         return await message.channel.send(embed=embed)
-
+    
     _ = subprocess.run(['pdfcrop', '/tmp/' + fid + '.pdf', '--margins', '4 4 4 4'])
     pdftoppm = subprocess.run(['pdftoppm', '-png', '-r', '800', '/tmp/' + fid + '-crop.pdf'], stdout=subprocess.PIPE)
 
