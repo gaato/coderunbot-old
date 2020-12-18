@@ -14,13 +14,14 @@ async def main(message, arg):
     here = os.path.dirname(__file__)
 
     with open(f'{here}/tex_template/texp.tex', 'r') as f:
-        tex_con = f.read().replace('[REPLACE]', arg.strip())
+        tex_con = f.read().replace('\\input', '').replace('\\include', '').replace('[REPLACE]', arg.strip())
 
     with open(f'/tmp/' + fid + '.tex', 'w') as f:
         f.write(tex_con)
 
     try:
-        _ = subprocess.run(['uplatex', '-halt-on-error', '-output-directory=/tmp', '/tmp/' + fid + '.tex'], timeout=10)
+        _ = subprocess.run(['uplatex', '-halt-on-error', '-output-directory=/tmp', '/tmp/' + fid + '.tex'], timeout=5)
+        dvipdfmx = subprocess.run(['dvipdfmx', '-q', '-o', '/tmp/' + fid + '.pdf', '/tmp/' + fid + '.dvi'], timeout=5)
     except subprocess.TimeoutExpired:
         embed = discord.Embed(
             title='タイムアウト Timeout',
@@ -28,7 +29,6 @@ async def main(message, arg):
         )
         embed.set_author(name=message.author.name, icon_url=message.author.avatar_url)
         return await message.channel.send(embed=embed)
-    dvipdfmx = subprocess.run(['dvipdfmx', '-q', '-o', '/tmp/' + fid + '.pdf', '/tmp/' + fid + '.dvi'])
 
     if dvipdfmx.returncode != 0:
         with open('/tmp/' + fid + '.log', 'r') as f:
