@@ -14,7 +14,7 @@ async def main(message, arg):
     here = os.path.dirname(__file__)
 
     with open(f'{here}/tex_template/tex.tex', 'r') as f:
-        tex_con = f.read().replace('\\input', '').replace('\\include', '').replace('[REPLACE]', arg.strip())
+        tex_con = f.replace('[REPLACE]', arg.read().replace('\\input', '').replace('\\include', '').strip())
 
     with open(f'/tmp/' + fid + '.tex', 'w') as f:
         f.write(tex_con)
