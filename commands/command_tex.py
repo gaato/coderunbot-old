@@ -16,7 +16,7 @@ async def main(message, arg):
     with open(f'{here}/tex_template/tex.tex', 'r') as f:
         tex_con = f.read().replace('[REPLACE]', arg.strip())
     
-    if 'verbatim' in tex_con or '\\input' in tex_con or '\\include' in tex_con:
+    if '\\input' in tex_con or '\\include' in tex_con or '\\csname' in tex_con:
         embed = discord.Embed(
             title='使用できない文字列が含まれています\\Contains a string that cannot be used',
             color=0xff0000
