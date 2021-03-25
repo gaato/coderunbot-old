@@ -1,4 +1,5 @@
 # CodeRunBot
+
 コードの実行や LaTeX の画像化ができます．
 
 ボットの招待リンクは[こちら](https://discord.com/api/oauth2/authorize?client_id=761428259241328680&permissions=0&scope=bot)．
@@ -16,6 +17,7 @@ It can run codes and image LaTeX.
 [Here](https://coderunbot.gart.page/en/) is how to use.
 
 ## 必要要件 Requirements
+
 - Linux or macOS
 - python3
 - TeXLive
@@ -23,11 +25,13 @@ It can run codes and image LaTeX.
 - ImageMagick (convert)
 
 ## .env
+
 ```
 DISCORD_TOKEN="YOUR-DISCORD-TOKEN"
 ```
 
 ## 実行方法 How to run it
+
 ```
 $ git clone git@github.com:Gart2357/coderunbot.git
 $ cd coderunbot
@@ -36,5 +40,7 @@ $ python coderunbot.py
 ```
 
 ## コマンドの追加の仕方 How to add commands
+
 `commands/command_<コマンド名>.py` というファイルに `async def main(message, arg)` と関数を定義する．
+
 Define a function `async def main(message, arg)` in the file `commands/command_<command name>.py`.
