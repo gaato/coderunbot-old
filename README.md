@@ -34,3 +34,7 @@ $ cd coderunbot
 $ pip install -r requirements.txt
 $ python coderunbot.py
 ```
+
+## コマンドの追加の仕方 How to add commands
+`commands/command_<コマンド名>.py` というファイルに `async def main(message, arg)` と関数を定義する．
+Define a function `async def main(message, arg)` in the file `commands/command_<command name>.py`.
