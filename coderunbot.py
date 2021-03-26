@@ -53,7 +53,7 @@ class LimitedSizeDict(OrderedDict):
 client = discord.Client()
 
 # save the author of the message the bot sent
-message_id_to_author_id = LimitedSizeDict(size_limit=100
+message_id_to_author_id = LimitedSizeDict(size_limit=100)
 # link user's message to the bot's message
 user_message_id_to_bot_message = LimitedSizeDict(size_limit=100)
 
