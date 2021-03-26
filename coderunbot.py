@@ -94,7 +94,7 @@ async def on_reaction_add(reaction, user):
         and reaction.message.id in message_id_to_author_id \
         and user.id == message_id_to_author_id[reaction.message.id]:
 
-        if str(reaction.emoji) in ('🚮', '✖️', '🗑️'):
+        if str(reaction.emoji) == '🚮':
             await reaction.message.delete()
 
 
