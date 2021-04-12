@@ -14,4 +14,4 @@ async def main(message, arg):
         title='使い方 Help',
         description=HELP_URL
     )
-    return await message.channel.send(embed=embed)
+    return await message.reply(embed=embed)

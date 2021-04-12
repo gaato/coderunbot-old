@@ -128,7 +128,7 @@ async def reply(message):
                         color=0xff0000
                     )
                     embed.set_author(name=message.author.name, icon_url=message.author.avatar_url)
-                    sent_message = await message.channel.send(embed=embed)
+                    sent_message = await message.reply(embed=embed)
                 # save the author of the message the bot sent
                 message_id_to_author_id[sent_message.id] = message.author.id
                 # link user's message to the bot's message
@@ -139,13 +139,13 @@ async def reply(message):
                         title='招待リンク Invitation Link',
                         description=INVITE_URL
                     )
-                    await message.channel.send(embed=embed)
+                    await message.reply(embed=embed)
                 elif random.randrange(100) == 0:
                     embed = discord.Embed(
                         title='公式サーバー Official Serever',
                         description=SERVER_URL
                     )
-                    await message.channel.send(embed=embed)
+                    await message.reply(embed=embed)
 
 
 client.run(DISCORD_TOKEN)

@@ -28,7 +28,7 @@ async def main(message, arg):
             name=message.author.name,
             icon_url=message.author.avatar_url
         )
-        return await message.channel.send(embed=embed)
+        return await message.reply(embed=embed)
     params = {
         'compiler': language_dict[language],
         'code': code,
@@ -43,7 +43,7 @@ async def main(message, arg):
                     description=f'{r.status}',
                     color=0xff0000
                 )
-                return await message.channel.send(embed=embed)
+                return await message.reply(embed=embed)
     
     embed = discord.Embed(title='実行結果 Result')
     embed_color = 0xff0000
@@ -70,4 +70,4 @@ async def main(message, arg):
         name=message.author.name,
         icon_url=message.author.avatar_url
     )
-    return await message.channel.send(embed=embed, files=files)
+    return await message.reply(embed=embed, files=files)

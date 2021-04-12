@@ -26,7 +26,7 @@ async def main(message, arg):
             color=0xff0000
         )
         embed.set_author(name=message.author.name, icon_url=message.author.avatar_url)
-        return await message.channel.send(embed=embed)
+        return await message.reply(embed=embed)
 
     with open(f'/tmp/' + fid + '.tex', 'w') as f:
         f.write(tex_con)
@@ -39,7 +39,7 @@ async def main(message, arg):
             color=0xff0000
         )
         embed.set_author(name=message.author.name, icon_url=message.author.avatar_url)
-        return await message.channel.send(embed=embed)
+        return await message.reply(embed=embed)
 
     if uplatex.returncode != 0:
         with open('/tmp/' + fid + '.log', 'r') as f:
@@ -51,7 +51,7 @@ async def main(message, arg):
             color=0xff0000
         )
         embed.set_author(name=message.author.name, icon_url=message.author.avatar_url)
-        return await message.channel.send(embed=embed)
+        return await message.reply(embed=embed)
 
     subprocess.run(['dvipdfmx', '-q', '-o', '/tmp/' + fid + '.pdf', '/tmp/' + fid + '.dvi'], timeout=10)
     subprocess.run(['pdfcrop', '/tmp/' + fid + '.pdf', '--margins', '4 4 4 4'])
@@ -66,4 +66,4 @@ async def main(message, arg):
     embed = discord.Embed(color=0x008000)
     embed.set_author(name=message.author.name, icon_url=message.author.avatar_url)
     embed.set_image(url=f'attachment://tex.png')
-    return await message.channel.send(file=discord.File(io.BytesIO(convert4.stdout), filename='tex.png'), embed=embed)
+    return await message.reply(file=discord.File(io.BytesIO(convert4.stdout), filename='tex.png'), embed=embed)

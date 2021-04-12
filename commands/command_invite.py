@@ -14,4 +14,4 @@ async def main(message, arg):
         title='招待 invite me',
         description=INVITE_URL
     )
-    return await message.channel.send(embed=embed)
+    return await message.reply(embed=embed)
