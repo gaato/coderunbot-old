@@ -81,19 +81,20 @@ async def on_message_edit(before, after):
 
 
 @client.event
-async def on_reaction_add(reaction, user):
+async def on_raw_reaction_add(payload: discord.RawReactionActionEvent):
 
-    if user == client.user:
+    if payload.user_id == client.user.id:
         return
 
     # if the reacted message is the bot's
     # and the person who reacted is the person who typed the command
-    if reaction.message.author == client.user \
-        and reaction.message.id in message_id_to_author_id \
-        and user.id == message_id_to_author_id[reaction.message.id]:
-
-        if str(reaction.emoji) == '🚮':
-            await reaction.message.delete()
+    channel = client.get_channel(payload.channel_id)
+    message = await channel.fetch_message(payload.message_id)
+    if message.author == client.user \
+        and message.id in message_id_to_author_id \
+        and payload.user_id == message_id_to_author_id[message.id]:
+        if str(payload.emoji) == '🚮':
+            await message.delete()
 
 
 # respond to the sent command
