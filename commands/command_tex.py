@@ -7,7 +7,7 @@ import io
 import discord
 
 
-async def main(message, arg):
+async def main(message: discord.Message, arg: str):
 
     arg = arg.replace('```tex', '').replace('```', '')
     # file id

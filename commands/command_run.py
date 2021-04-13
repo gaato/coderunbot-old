@@ -10,7 +10,7 @@ import discord
 url = 'https://wandbox.org/api/compile.json'
 here = os.path.dirname(__file__)
 
-async def main(message, arg):
+async def main(message: discord.Message, arg: str):
 
     with open(f'{here}/languages.json', 'r') as f:
         language_dict = json.load(f)

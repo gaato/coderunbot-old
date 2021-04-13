@@ -62,12 +62,12 @@ async def on_ready():
 
 
 @client.event
-async def on_message(message):
+async def on_message(message: discord.Message):
     await reply(message)
 
 
 @client.event
-async def on_message_edit(before, after):
+async def on_message_edit(before: discord.Message, after: discord.Message):
 
     # if the sent message is a call to the bot
     if before.id in user_message_id_to_bot_message:
@@ -98,7 +98,7 @@ async def on_raw_reaction_add(payload: discord.RawReactionActionEvent):
 
 
 # respond to the sent command
-async def reply(message):
+async def reply(message: discord.Message):
 
     # if the author is a bot other than PythonBot and botphilia
     if message.author.bot:

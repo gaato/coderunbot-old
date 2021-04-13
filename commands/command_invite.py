@@ -8,7 +8,7 @@ with open(os.path.dirname(__file__) + '/../config.json', 'r') as f:
 
 INVITE_URL = config_dict['invite_url']
 
-async def main(message, arg):
+async def main(message: discord.Message, arg: str):
 
     embed = discord.Embed(
         title='招待 invite me',
