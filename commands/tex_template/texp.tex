@@ -17,6 +17,10 @@
 \usepackage{nicefrac}
 \usepackage{physics}
 
+% The physics package redifines \div to be "divergence",
+% but that's not what anyone wants
+\renewcommand{\div}{\divisionsymbol}
+
 \pagestyle{empty}
 
 \begin{document}
