@@ -69,11 +69,12 @@ async def on_message(message: discord.Message):
 @client.event
 async def on_message_edit(before: discord.Message, after: discord.Message):
 
+    global user_message_id_to_bot_message
     # if the sent message is a call to the bot
     if before.id in user_message_id_to_bot_message:
         try:
             # delete the bot message
-            await globals()['user_message_id_to_bot_message'][before.id].delete()
+            await user_message_id_to_bot_message[before.id].delete()
         except discord.errors.NotFound:
             pass
     # respond to the edited messege
