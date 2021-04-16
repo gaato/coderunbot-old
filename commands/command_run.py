@@ -1,6 +1,5 @@
 import json
 import os
-import random
 import re
 import io
 
@@ -10,15 +9,18 @@ import discord
 url = 'https://wandbox.org/api/compile.json'
 here = os.path.dirname(__file__)
 
+
 async def main(message: discord.Message, arg: str):
 
     with open(f'{here}/languages.json', 'r') as f:
         language_dict = json.load(f)
-    arg = re.sub(r'```[A-z\-\+]*\n', '', arg).replace('```', '')    
+    arg = re.sub(r'```[A-z\-\+]*\n', '', arg).replace('```', '')
     language = arg.split()[0]
     code = arg.replace(language, '', 1).lstrip(' \n')
-    language = language.lower().replace('pp', '++').replace('sharp', '#').replace('clisp', 'lisp').replace('lisp', 'clisp')
-    if not language in language_dict.keys():
+    language = language.lower()
+    language = language.replace('pp', '++').replace('sharp', '#')
+    language = language.replace('clisp', 'lisp').replace('lisp', 'clisp')
+    if language not in language_dict.keys():
         embed = discord.Embed(
             title='以下の言語に対応しています\nThe following languages are supported',
             description=', '.join(language_dict.keys()),
@@ -44,7 +46,7 @@ async def main(message: discord.Message, arg: str):
                     color=0xff0000
                 )
                 return await message.reply(embed=embed)
-    
+
     embed = discord.Embed(title='実行結果 Result')
     embed_color = 0xff0000
     files = []

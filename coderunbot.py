@@ -29,7 +29,6 @@ from config import DISCORD_TOKEN, PREFIX, SERVER_URL, INVITE_URL
 # dictionary to adjust size automatically
 class LimitedSizeDict(OrderedDict):
 
-
     def __init__(self, *args, **kwds):
 
         self.size_limit = kwds.pop("size_limit", None)
@@ -55,7 +54,9 @@ message_id_to_author_id = LimitedSizeDict(size_limit=100)
 # link user's message to the bot's message
 user_message_id_to_bot_message = LimitedSizeDict(size_limit=100)
 
-                                          
+here = os.path.dirname(os.path.abspath(__file__))
+
+
 @client.event
 async def on_ready():
     print('It\'s activated')
@@ -92,8 +93,8 @@ async def on_raw_reaction_add(payload: discord.RawReactionActionEvent):
     channel = client.get_channel(payload.channel_id)
     message = await channel.fetch_message(payload.message_id)
     if message.author == client.user \
-        and message.id in message_id_to_author_id \
-        and payload.user_id == message_id_to_author_id[message.id]:
+            and message.id in message_id_to_author_id \
+            and payload.user_id == message_id_to_author_id[message.id]:
         if str(payload.emoji) == '🚮':
             await message.delete()
 
@@ -111,7 +112,7 @@ async def reply(message: discord.Message):
         arg = message.content[len(PREFIX) + len(command):].lstrip()
 
         # if the command file exists atthe specified location
-        if os.path.exists(f'{os.path.dirname(os.path.abspath(__file__))}/commands/command_{command}.py'):
+        if os.path.exists(f'{here}/commands/command_{command}.py'):
 
             command_module = import_module(f'commands.command_{command}')
             async with message.channel.typing():
@@ -123,11 +124,15 @@ async def reply(message: discord.Message):
                     logging.exception(e)
                     embed = discord.Embed(
                         title='内部エラー Internal Error',
-                        description='公式サーバーで報告してください\nReport it on the official server\n'
-                            + SERVER_URL,
+                        description='公式サーバーで報告してください\n'
+                                    'Report it on the official server\n'
+                                    + SERVER_URL,
                         color=0xff0000
                     )
-                    embed.set_author(name=message.author.name, icon_url=message.author.avatar_url)
+                    embed.set_author(
+                        name=message.author.name,
+                        icon_url=message.author.avatar_url
+                    )
                     sent_message = await message.reply(embed=embed)
                 # save the author of the message the bot sent
                 message_id_to_author_id[sent_message.id] = message.author.id

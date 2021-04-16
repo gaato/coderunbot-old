@@ -8,6 +8,7 @@ with open(os.path.dirname(__file__) + '/../config.json', 'r') as f:
 
 HELP_URL = config_dict['help_url']
 
+
 async def main(message: discord.Message, arg: str):
 
     embed = discord.Embed(
