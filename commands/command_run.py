@@ -17,9 +17,9 @@ async def main(message: discord.Message, arg: str):
     arg = re.sub(r'```[A-z\-\+]*\n', '', arg).replace('```', '')
     language = arg.split()[0]
     code = arg.replace(language, '', 1).lstrip(' \n')
-    language = language.lower()
-    language = language.replace('pp', '++').replace('sharp', '#')
-    language = language.replace('clisp', 'lisp').replace('lisp', 'clisp')
+    language = language.lower() \
+        .replace('pp', '++').replace('sharp', '#') \
+        .replace('clisp', 'lisp').replace('lisp', 'clisp')
     if language not in language_dict.keys():
         embed = discord.Embed(
             title='以下の言語に対応しています\nThe following languages are supported',
