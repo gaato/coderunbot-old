@@ -113,10 +113,10 @@ async def reply(message: discord.Message):
         # if the command file exists atthe specified location
         if os.path.exists(f'{os.path.dirname(os.path.abspath(__file__))}/commands/command_{command}.py'):
 
-            tmp_module = import_module(f'commands.command_{command}')
+            command_module = import_module(f'commands.command_{command}')
             async with message.channel.typing():
                 try:
-                    sent_message = await tmp_module.main(message, arg)
+                    sent_message = await command_module.main(message, arg)
                 except discord.Forbidden:
                     return
                 except Exception as e:
