@@ -1,6 +1,6 @@
 {
     "bash": "bash",
-    "c": "gcc-4.8.2-c",
+    "c": "gcc-head-c",
     "c#": "mono-head",
     "c++": "gcc-head",
     "clisp": "sbcl-head",
