@@ -70,6 +70,10 @@ async def on_message(message: discord.Message):
 @client.event
 async def on_message_edit(before: discord.Message, after: discord.Message):
 
+    # if user message has an embed
+    if before.content == after.content:
+        return
+
     global user_message_id_to_bot_message
     # if the sent message is a call to the bot
     if before.id in user_message_id_to_bot_message:
