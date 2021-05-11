@@ -148,13 +148,21 @@ async def reply(message: discord.Message):
                         title='招待リンク Invitation Link',
                         description=INVITE_URL
                     )
-                    await message.reply(embed=embed)
+                    sent_message = await message.channel.send(embed=embed)
+                    message_id_to_author_id[sent_message.id] \
+                        = message.author.id
+                    user_message_id_to_bot_message[message.id] = sent_message
+                    await sent_message.add_reaction('🚮')
                 elif random.randrange(100) == 0:
                     embed = discord.Embed(
                         title='公式サーバー Official Serever',
                         description=SERVER_URL
                     )
-                    await message.reply(embed=embed)
+                    sent_message = await message.channel.send(embed=embed)
+                    message_id_to_author_id[sent_message.id] \
+                        = message.author.id
+                    user_message_id_to_bot_message[message.id] = sent_message
+                    await sent_message.add_reaction('🚮')
 
 
 client.run(DISCORD_TOKEN)
