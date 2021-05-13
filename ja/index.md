@@ -65,6 +65,18 @@ print('hello')
 - TypeScript (typescript)
 - VimScript (vimscript)
 
+### save
+```
+]save 言語
+コード
+```
+であなたのコードを保存します．
+```
+]run saved
+標準入力
+```
+で呼び出せます．
+
 ### tex
 ```
 ]tex

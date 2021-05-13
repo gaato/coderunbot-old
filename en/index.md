@@ -65,6 +65,18 @@ print('hello')
 - TypeScript (typescript)
 - VimScript (vimscript)
 
+### save
+```
+]save language
+code
+```
+saves your code.
+You can call it by sending as follows.
+```
+]run saved
+standard input
+```
+
 ### tex
 ```
 ]tex
