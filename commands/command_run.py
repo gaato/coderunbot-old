@@ -22,7 +22,7 @@ async def main(message: discord.Message, arg: str):
         .replace('clisp', 'lisp').replace('lisp', 'clisp')
     if language not in language_dict.keys():
         embed = discord.Embed(
-            title='以下の言語に対応しています\nThe following languages are supported',
+            title='以下の言語に対応しています',
             description=', '.join(language_dict.keys()),
             color=0xff0000
         )
@@ -31,9 +31,18 @@ async def main(message: discord.Message, arg: str):
             icon_url=message.author.avatar_url
         )
         return await message.reply(embed=embed)
+    if language == 'nim':
+        compiler_option = '--hint[Processing]:off\n' \
+            '--hint[Conf]:off\n' \
+            '--hint[Link]:off\n' \
+            '--hint[SuccessX]:off\n' \
+            '--hint[BuildMode]:off'
+    else:
+        compiler_option = ''
     params = {
         'compiler': language_dict[language],
         'code': code,
+        'compiler-option-raw': compiler_option,
     }
     async with aiohttp.ClientSession() as session:
         async with session.post(url, json=params) as r:
@@ -41,31 +50,35 @@ async def main(message: discord.Message, arg: str):
                 result = await r.json()
             else:
                 embed = discord.Embed(
-                    title='接続エラー Connection Error',
+                    title='接続エラー',
                     description=f'{r.status}',
                     color=0xff0000
                 )
                 return await message.reply(embed=embed)
 
-    embed = discord.Embed(title='実行結果 Result')
+    embed = discord.Embed(title='実行結果')
     embed_color = 0xff0000
     files = []
-    for item in result.items():
-        if item[0] in ('program_message', 'compiler_message'):
+    for k, v in result.items():
+        if k in ('program_message', 'compiler_message'):
             continue
-        if item[0] == 'status' and item[1] == '0':
+        if k == 'status' and v == '0':
             embed_color = 0x007000
-        if len(item[1]) > 1000 or len(item[1].split('\n')) > 100:
+        if language == 'nim' and k == 'compiler_error':
+            v = re.sub(r'CC: \S+\n', '', v)
+            if v == '':
+                continue
+        if len(v) > 1000 or len(v.split('\n')) > 100:
             files.append(
                 discord.File(
-                    io.StringIO(item[1]),
-                    item[0] + '.txt'
+                    io.StringIO(v),
+                    k + '.txt'
                 )
             )
         else:
             embed.add_field(
-                name=item[0],
-                value='```\n' + item[1] + '\n```',
+                name=k,
+                value='```\n' + v + '\n```',
             )
     embed.color = embed_color
     embed.set_author(

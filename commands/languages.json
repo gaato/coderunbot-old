@@ -18,7 +18,7 @@
     "javascript": "nodejs-head",
     "lazyk": "lazyk",
     "lua": "lua-5.4.0",
-    "nim": "nim-1.2.0",
+    "nim": "nim-head",
     "ocaml": "ocaml-head",
     "openssl": "openssl-head",
     "perl": "perl-head",
