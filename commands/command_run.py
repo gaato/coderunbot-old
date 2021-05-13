@@ -22,7 +22,7 @@ async def main(message: discord.Message, arg: str):
         .replace('clisp', 'lisp').replace('lisp', 'clisp')
     if language not in language_dict.keys():
         embed = discord.Embed(
-            title='以下の言語に対応しています',
+            title='以下の言語に対応しています\nThe following languages are supported',
             description=', '.join(language_dict.keys()),
             color=0xff0000
         )
@@ -50,7 +50,7 @@ async def main(message: discord.Message, arg: str):
                 result = await r.json()
             else:
                 embed = discord.Embed(
-                    title='接続エラー',
+                    title='接続エラー Connection Error',
                     description=f'{r.status}',
                     color=0xff0000
                 )
