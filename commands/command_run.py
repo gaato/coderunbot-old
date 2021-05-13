@@ -17,9 +17,27 @@ async def main(message: discord.Message, arg: str):
     arg = re.sub(r'```[A-z\-\+]*\n', '', arg).replace('```', '')
     language = arg.split()[0]
     code = arg.replace(language, '', 1).lstrip(' \n')
+    stdin = ''
     language = language.lower() \
         .replace('pp', '++').replace('sharp', '#') \
         .replace('clisp', 'lisp').replace('lisp', 'clisp')
+    if language == 'saved':
+        if not os.path.exists(f'{here}/saved_codes/{message.author.id}.json'):
+            embed = discord.Embed(
+                title='コードを保存していません',
+                description=')save でコードを保存できます',
+                color=0xff0000
+            )
+            embed.set_author(
+                name=message.author.name,
+                icon_url=message.author.avatar_url
+            )
+            return await message.reply(embed=embed)
+        stdin = code
+        with open(f'{here}/saved_codes/{message.author.id}.json', 'r') as f:
+            user_data = json.load(f)
+        language = user_data['language']
+        code = user_data['code']
     if language not in language_dict.keys():
         embed = discord.Embed(
             title='以下の言語に対応しています\nThe following languages are supported',
@@ -42,6 +60,7 @@ async def main(message: discord.Message, arg: str):
     params = {
         'compiler': language_dict[language],
         'code': code,
+        'stdin': stdin,
         'compiler-option-raw': compiler_option,
     }
     async with aiohttp.ClientSession() as session:
