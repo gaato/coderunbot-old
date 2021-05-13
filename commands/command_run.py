@@ -25,7 +25,8 @@ async def main(message: discord.Message, arg: str):
         if not os.path.exists(f'{here}/saved_codes/{message.author.id}.json'):
             embed = discord.Embed(
                 title='コードを保存していません',
-                description=')save でコードを保存できます',
+                description='save コマンドでコードを保存できます\n'
+                            'You can save code by save command',
                 color=0xff0000
             )
             embed.set_author(
