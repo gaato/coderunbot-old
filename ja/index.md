@@ -5,6 +5,7 @@
   - [run](#run)
     - [例](#e1)
     - [言語一覧](#言語一覧)
+  - [save](#save)
   - [tex](#tex)
     - [例](#e2)
   - [texp](#texp)
