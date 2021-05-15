@@ -8,7 +8,7 @@
 
 使い方は[こちら](https://coderunbot.gart.page/ja/)．
 
-It can run codes and image LaTeX.
+It can run codes and render LaTeX.
 
 [Here](https://discord.com/api/oauth2/authorize?client_id=761428259241328680&permissions=0&scope=bot) is the bot's invitation link.
 
