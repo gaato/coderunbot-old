@@ -6,7 +6,7 @@
 
 公式 Discord サーバーは[こちら](https://discord.gg/qRpYRTgvXM)．
 
-使い方は[こちら](https://coderunbot.gart.page/ja/)．
+使い方は[こちら](https://coderunbot.gaato.dev/ja/)．
 
 It can run codes and render LaTeX.
 
@@ -14,7 +14,7 @@ It can run codes and render LaTeX.
 
 [Here](https://discord.gg/qRpYRTgvXM) is the official discord server.
 
-[Here](https://coderunbot.gart.page/en/) is how to use.
+[Here](https://coderunbot.gaato.dev/en/) is how to use.
 
 ## 必要要件 Requirements
 
