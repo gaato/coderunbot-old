@@ -54,8 +54,7 @@ async def main(message: discord.Message, arg: str):
         compiler_option = '--hint[Processing]:off\n' \
             '--hint[Conf]:off\n' \
             '--hint[Link]:off\n' \
-            '--hint[SuccessX]:off\n' \
-            '--hint[BuildMode]:off'
+            '--hint[SuccessX]:off'
     else:
         compiler_option = ''
     params = {
