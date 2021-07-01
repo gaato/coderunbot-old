@@ -10,7 +10,7 @@ async def main(message: discord.Message, arg: str):
 
     arg = arg.replace('```tex', '').replace('```', '')
 
-    url = 'http://localhost:5000/texp/' + urllib.parse.quote(arg, safe='')
+    url = 'http://localhost:5000/tex/' + urllib.parse.quote(arg, safe='')
     async with aiohttp.ClientSession() as session:
         async with session.get(url) as r:
             if r.status == 200:
@@ -29,11 +29,11 @@ async def main(message: discord.Message, arg: str):
             name=message.author.name,
             icon_url=message.author.avatar_url,
         )
-        embed.set_image(url='attachment://tex.png')
         return await message.reply(
             file=discord.File(
                 io.BytesIO(base64.b64decode(result['result'])),
                 filename='tex.png',
+                spoiler=True,
             ),
             embed=embed,
         )
@@ -50,7 +50,7 @@ async def main(message: discord.Message, arg: str):
         return await message.reply(embed=embed)
     elif result['status'] == 2:
         embed = discord.Embed(
-            title='タイムアウト Time Out',
+            title='タイムアウト',
             color=0xff0000,
         )
         embed.set_author(
@@ -60,7 +60,7 @@ async def main(message: discord.Message, arg: str):
         return await message.reply(embed=embed)
     else:
         embed = discord.Embed(
-            title='Unknown Error',
+            title='未知のエラー Unknown Error',
             color=0xff0000,
         )
         embed.set_author(

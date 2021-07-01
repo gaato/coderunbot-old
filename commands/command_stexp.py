@@ -29,11 +29,11 @@ async def main(message: discord.Message, arg: str):
             name=message.author.name,
             icon_url=message.author.avatar_url,
         )
-        embed.set_image(url='attachment://tex.png')
         return await message.reply(
             file=discord.File(
                 io.BytesIO(base64.b64decode(result['result'])),
                 filename='tex.png',
+                spoiler=True,
             ),
             embed=embed,
         )
@@ -60,7 +60,7 @@ async def main(message: discord.Message, arg: str):
         return await message.reply(embed=embed)
     else:
         embed = discord.Embed(
-            title='Unknown Error',
+            title='未知のエラー Unknown Error',
             color=0xff0000,
         )
         embed.set_author(
