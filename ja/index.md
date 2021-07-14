@@ -1,5 +1,7 @@
 # Bot の使い方
+
 ## 目次
+
 - [はじめに](#はじめに)
 - [コマンド](#コマンド)    
   - [run](#run)
@@ -10,13 +12,21 @@
     - [例](#e2)
   - [texp](#texp)
     - [例](#e3)
+  - [stex](#stex)
+  - [stexp](#stexp)
+  - [texpdf](#texpdf)
+    - [例](#e4)
 
 ## はじめに
+
 この Bot はがーと([@kinder_Gart_en](https://twitter.com/kinder_Gart_en))によって作られました．
 
 公式 Discord サーバーは[こちら](https://discord.gg/qRpYRTgvXM)
+
 ## コマンド
+
 ### run
+
 ```
 ]run 言語
 コード
@@ -24,12 +34,16 @@
 であなたのコードを実行します．
 
 なおコードブロックのための "```" は無視されます．
+
 #### 例<a id="e1"></a>
+
 ```
 ]run python
 print('hello')
 ```
+
 #### 言語一覧
+
 - Bash (bash)
 - C (c)
 - C# (c#)
@@ -67,6 +81,7 @@ print('hello')
 - VimScript (vimscript)
 
 ### save
+
 ```
 ]save 言語
 コード
@@ -79,6 +94,7 @@ print('hello')
 で呼び出せます．
 
 ### tex
+
 ```
 ]tex
 数式コマンド
@@ -88,12 +104,16 @@ print('hello')
 なおコードブロックのための "```" は無視されます．
 
 LaTeX の数式モード（gather*環境）を使っています．
+
 #### 例<a id="e2"></a>
+
 ```
 ]tex
 \int_0^1 f(x)\,dx
 ```
+
 ### texp
+
 ```
 ]texp
 LaTeXによるテキスト
@@ -103,7 +123,9 @@ LaTeXによるテキスト
 なおコードブロックのための "```" は無視されます．
 
 LaTeX のテキストモードを使っています．
+
 #### 例<a id="e3"></a>
+
 ```
 ]texp
 実定数$a,b,c$に対して，複素数$x$に関する二次方程式
@@ -115,4 +137,47 @@ LaTeX のテキストモードを使っています．
   x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}
 \]
 と表される．
+```
+
+### stex
+
+```
+]stex
+数式コマンド
+```
+[tex](#tex) コマンドでスポイラーをかけます．
+
+### stexp
+
+```
+]stexp
+LaTeXによるテキスト
+```
+[stex](#stex) + [texp](#texp)
+
+### texpdf
+
+```
+]texpdf
+LaTeX文書
+```
+で LaTeX により PDF を作成します．
+
+#### 例<a id="e4"></a>
+
+```
+]texpdf
+\documentclass[uplatex]{jsarticle}
+\usepackage{amsmath}
+\begin{document}
+実定数$a,b,c$に対して，複素数$x$に関する二次方程式
+\[
+  ax^2+bx+c=0
+\]
+の解は
+\[
+  x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}
+\]
+と表される．
+\end{document}
 ```
