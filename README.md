@@ -20,7 +20,9 @@ It can run codes and render LaTeX.
 
 - Linux or macOS
 - python3
-- [Render TeX Server](https://github.com/gaato/render-tex-server)
+- TeXLive
+- Poppler (pdftoppm)
+- ImageMagick (convert)
 
 ## .env
 
@@ -29,10 +31,6 @@ DISCORD_TOKEN="YOUR-DISCORD-TOKEN"
 ```
 
 ## 実行方法 How to run it
-
-まず [Render TeX Server](https://github.com/gaato/render-tex-server) を localhost で実行する.
-
-First, run [Render TeX Server](https://github.com/gaato/render-tex-server) on localhost.
 
 ```
 $ git clone git@github.com:Gart2357/coderunbot.git
