@@ -10,7 +10,7 @@ async def main(message: discord.Message, arg: str):
     if os.path.exists(f'{here}/saved_codes/{message.author.id}.json'):
         os.remove(f'{here}/saved_codes/{message.author.id}.json')
         embed = discord.Embed(
-            title='削除しました Deleted',
+            title='Deleted',
         )
         embed.set_author(
             name=message.author.name,
@@ -19,7 +19,7 @@ async def main(message: discord.Message, arg: str):
         return await message.reply(embed=embed)
     else:
         embed = discord.Embed(
-            title='保存されていません Not saved',
+            title='Code not saved',
             color=0xff0000,
         )
         embed.set_author(

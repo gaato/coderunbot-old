@@ -19,7 +19,7 @@ async def main(message: discord.Message, arg: str):
         .replace('clisp', 'lisp').replace('lisp', 'clisp')
     if language not in language_dict.keys():
         embed = discord.Embed(
-            title='以下の言語に対応しています\nThe following languages are supported',
+            title='The following languages are supported',
             description=', '.join(language_dict.keys()),
             color=0xff0000
         )

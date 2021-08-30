@@ -12,7 +12,7 @@ INVITE_URL = config_dict['invite_url']
 async def main(message: discord.Message, arg: str):
 
     embed = discord.Embed(
-        title='招待 invite me',
+        title='invite me',
         description=INVITE_URL
     )
     return await message.reply(embed=embed)

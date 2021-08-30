@@ -23,7 +23,7 @@ async def main(message: discord.Message, arg: str):
             or '\\tempfile' in tex_con or '\\makeatletter' in tex_con \
             or '\\pdffiledump' in tex_con:
         embed = discord.Embed(
-            title='使用できない文字列が含まれています\nContains a string that cannot be used',
+            title='Contains a string that cannot be used',
             color=0xff0000
         )
         embed.set_author(
@@ -47,7 +47,7 @@ async def main(message: discord.Message, arg: str):
         )
     except subprocess.TimeoutExpired:
         embed = discord.Embed(
-            title='タイムアウト\nTime out',
+            title='Time out',
             color=0xff0000
         )
         embed.set_author(
@@ -61,7 +61,7 @@ async def main(message: discord.Message, arg: str):
             err = f.read().split('!')[1].split('Here')[0]
         subprocess.run(f'rm /tmp/{fid}.*', shell=True)
         embed = discord.Embed(
-            title='レンダリングエラー\nRendering Error',
+            title='Rendering Error',
             description=f'```\n{err}\n```',
             color=0xff0000
         )

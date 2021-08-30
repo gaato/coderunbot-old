@@ -24,9 +24,8 @@ async def main(message: discord.Message, arg: str):
     if language == 'saved':
         if not os.path.exists(f'{here}/saved_codes/{message.author.id}.json'):
             embed = discord.Embed(
-                title='コードを保存していません',
-                description='save コマンドでコードを保存できます\n'
-                            'You can save code by save command',
+                title='Code not saved',
+                description='You can save code by save command',
                 color=0xff0000
             )
             embed.set_author(
@@ -41,7 +40,7 @@ async def main(message: discord.Message, arg: str):
         code = user_data['code']
     if language not in language_dict.keys():
         embed = discord.Embed(
-            title='以下の言語に対応しています\nThe following languages are supported',
+            title='The following languages are supported',
             description=', '.join(language_dict.keys()),
             color=0xff0000
         )
@@ -69,13 +68,13 @@ async def main(message: discord.Message, arg: str):
                 result = await r.json()
             else:
                 embed = discord.Embed(
-                    title='接続エラー Connection Error',
+                    title='Connection Error',
                     description=f'{r.status}',
                     color=0xff0000
                 )
                 return await message.reply(embed=embed)
 
-    embed = discord.Embed(title='実行結果')
+    embed = discord.Embed(title='Result')
     embed_color = 0xff0000
     files = []
     for k, v in result.items():

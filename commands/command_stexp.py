@@ -1,7 +1,7 @@
-import random
 import os
 import subprocess
 import io
+import random
 
 import discord
 
@@ -13,7 +13,7 @@ async def main(message: discord.Message, arg: str):
     fid = str(random.SystemRandom().randrange(10000, 100000))
     here = os.path.dirname(__file__)
 
-    with open(f'{here}/tex_template/tex.tex', 'r') as f:
+    with open(f'{here}/tex_template/texp.tex', 'r') as f:
         tex_con = f.read().replace('[REPLACE]', arg.strip())
 
     if '\\input' in tex_con or '\\include' in tex_con \
@@ -86,13 +86,59 @@ async def main(message: discord.Message, arg: str):
         ['pdftoppm', '-png', '-r', '800', '/tmp/' + fid + '-crop.pdf'],
         stdout=subprocess.PIPE
     )
+    convert1 = subprocess.run(
+        ['convert', '-', '-gravity', 'northwest', '-chop', '0x150', 'png:-'],
+        input=pdftoppm.stdout,
+        stdout=subprocess.PIPE
+    )
+    convert2 = subprocess.run(
+        ['convert', '-', '-gravity', 'southeast', '-chop', '0x200', 'png:-'],
+        input=convert1.stdout,
+        stdout=subprocess.PIPE
+    )
+    convert3 = subprocess.run(
+        [
+            'convert',
+            '-',
+            '-background',
+            '#FFFFFF',
+            '-gravity',
+            'northwest',
+            '-splice',
+            '10x10',
+            'png:-'
+        ],
+        input=convert2.stdout,
+        stdout=subprocess.PIPE
+    )
+    convert4 = subprocess.run(
+        [
+            'convert',
+            '-',
+            '-background',
+            '#FFFFFF',
+            '-gravity',
+            'southeast',
+            '-splice',
+            '10x10',
+            'png:-'
+        ],
+        input=convert3.stdout,
+        stdout=subprocess.PIPE
+    )
+
+    subprocess.run(f'rm /tmp/{fid}.*', shell=True)
+
     embed = discord.Embed(color=0x008000)
     embed.set_author(
         name=message.author.name,
         icon_url=message.author.avatar_url
     )
-    embed.set_image(url='attachment://tex.png')
     return await message.reply(
-        file=discord.File(io.BytesIO(pdftoppm.stdout), filename='tex.png'),
+        file=discord.File(
+            io.BytesIO(pdftoppm.stdout),
+            filename='tex.png',
+            spoiler=True
+        ),
         embed=embed
     )

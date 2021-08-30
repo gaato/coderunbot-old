@@ -86,13 +86,17 @@ async def main(message: discord.Message, arg: str):
         ['pdftoppm', '-png', '-r', '800', '/tmp/' + fid + '-crop.pdf'],
         stdout=subprocess.PIPE
     )
+
     embed = discord.Embed(color=0x008000)
     embed.set_author(
         name=message.author.name,
         icon_url=message.author.avatar_url
     )
-    embed.set_image(url='attachment://tex.png')
     return await message.reply(
-        file=discord.File(io.BytesIO(pdftoppm.stdout), filename='tex.png'),
+        file=discord.File(
+            io.BytesIO(pdftoppm.stdout),
+            filename='tex.png',
+            spoiler=True
+        ),
         embed=embed
     )
