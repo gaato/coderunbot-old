@@ -30,7 +30,7 @@ async def main(message: discord.Message, arg: str):
             )
             embed.set_author(
                 name=message.author.name,
-                icon_url=message.author.avatar_url
+                icon_url=message.author.display_avatar.url
             )
             return await message.reply(embed=embed)
         stdin = code
@@ -46,7 +46,7 @@ async def main(message: discord.Message, arg: str):
         )
         embed.set_author(
             name=message.author.name,
-            icon_url=message.author.avatar_url
+            icon_url=message.author.display_avatar.url
         )
         return await message.reply(embed=embed)
     if language == 'nim':
@@ -101,6 +101,6 @@ async def main(message: discord.Message, arg: str):
     embed.color = embed_color
     embed.set_author(
         name=message.author.name,
-        icon_url=message.author.avatar_url
+        icon_url=message.author.display_avatar.url
     )
     return await message.reply(embed=embed, files=files)

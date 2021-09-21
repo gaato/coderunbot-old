@@ -135,7 +135,7 @@ async def reply(message: discord.Message):
                     )
                     embed.set_author(
                         name=message.author.name,
-                        icon_url=message.author.avatar_url
+                        icon_url=message.author.display_avatar.url
                     )
                     sent_message = await message.reply(embed=embed)
                 # save the author of the message the bot sent

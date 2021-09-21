@@ -28,7 +28,7 @@ async def main(message: discord.Message, arg: str):
         )
         embed.set_author(
             name=message.author.name,
-            icon_url=message.author.avatar_url
+            icon_url=message.author.display_avatar.url
         )
         return await message.reply(embed=embed)
 
@@ -52,7 +52,7 @@ async def main(message: discord.Message, arg: str):
         )
         embed.set_author(
             name=message.author.name,
-            icon_url=message.author.avatar_url
+            icon_url=message.author.display_avatar.url
         )
         return await message.reply(embed=embed)
 
@@ -67,7 +67,7 @@ async def main(message: discord.Message, arg: str):
         )
         embed.set_author(
             name=message.author.name,
-            icon_url=message.author.avatar_url
+            icon_url=message.author.display_avatar.url
         )
         return await message.reply(embed=embed)
 
@@ -90,7 +90,7 @@ async def main(message: discord.Message, arg: str):
     embed = discord.Embed(color=0x008000)
     embed.set_author(
         name=message.author.name,
-        icon_url=message.author.avatar_url
+        icon_url=message.author.display_avatar.url
     )
     return await message.reply(
         file=discord.File(
