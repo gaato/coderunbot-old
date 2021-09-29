@@ -20,9 +20,7 @@ It can run codes and render LaTeX.
 
 - Linux or macOS
 - python3
-- TeXLive
-- Poppler (pdftoppm)
-- ImageMagick (convert)
+- [render-tex-server](https://github.com/gaato/render-tex-server)
 
 ## .env
 
