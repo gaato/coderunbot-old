@@ -10,7 +10,7 @@ async def response(message: discord.Message, arg: str, command: str, spoiler: bo
 
     async with message.channel.typing():
 
-        arg = arg.replace('```tex', '').replace('```', '')
+        arg = arg.replace('```tex', '').replace('```', '').strip()
 
         url = f'http://localhost/{command}/' + urllib.parse.quote(arg, safe='')
         async with aiohttp.ClientSession() as session:
