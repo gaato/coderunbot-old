@@ -1,20 +1,25 @@
 import base64
 import io
-import urllib
+from typing import Union
 
 import discord
 import aiohttp
 
 
-async def response(message: discord.Message, arg: str, command: str, spoiler: bool):
+async def response(message: discord.Message, arg: str, file_type: str, plain: Union[bool, None], spoiler: bool):
 
     async with message.channel.typing():
 
         arg = arg.replace('```tex', '').replace('```', '').strip()
 
-        url = f'http://localhost/{command}/' + urllib.parse.quote(arg, safe='')
+        url = f'http://localhost/'
+        params = {
+            'file_type': file_type,
+            'plain': plain,
+            'code': arg,
+        }
         async with aiohttp.ClientSession() as session:
-            async with session.get(url) as r:
+            async with session.post(url, json=params) as r:
                 if r.status == 200:
                     result = await r.json()
                 else:
@@ -31,12 +36,12 @@ async def response(message: discord.Message, arg: str, command: str, spoiler: bo
                 name=message.author.name,
                 icon_url=message.author.display_avatar.url,
             )
-            if command != 'texpdf':
+            if file_type == 'png':
                 embed.set_image(url='attachment://tex.png')
             return await message.reply(
                 file=discord.File(
                     io.BytesIO(base64.b64decode(result['result'])),
-                    filename='tex.pdf' if command == 'texpdf' else 'tex.png',
+                    filename='tex.pdf' if file_type == 'pdf' else 'tex.png',
                     spoiler=spoiler,
                 ),
                 embed=embed,
