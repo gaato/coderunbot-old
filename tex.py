@@ -14,7 +14,7 @@ async def response(message: discord.Message, arg: str, file_type: str, plain: Un
 
         url = f'http://localhost/'
         params = {
-            'file_type': file_type,
+            'type': file_type,
             'plain': plain,
             'code': arg,
         }
