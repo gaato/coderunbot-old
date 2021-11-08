@@ -31,7 +31,7 @@ DISCORD_TOKEN="YOUR-DISCORD-TOKEN"
 ## 実行方法 How to run it
 
 ```
-$ git clone git@github.com:Gart2357/coderunbot.git
+$ git clone git@github.com:gaato/coderunbot.git
 $ cd coderunbot
 $ pip install -r requirements.txt
 $ python coderunbot.py
