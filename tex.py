@@ -12,7 +12,7 @@ async def response(message: discord.Message, arg: str, file_type: str, plain: Un
 
         arg = arg.replace('```tex', '').replace('```', '').strip()
 
-        url = f'http://localhost/'
+        url = f'https://gaato.net/api/tex'
         params = {
             'type': file_type,
             'plain': plain,
